@@ -262,7 +262,7 @@ def webhooks(request, topic):
         request_body = {
             "connection_id": connection_id,
             "proof_request": {
-                "name": "ON Verified HCN",
+                "name": "ON Covid status",
                 "version": "1.0.0",
                 "requested_predicates": {},
                 "requested_attributes": {
@@ -271,7 +271,7 @@ def webhooks(request, topic):
                          "restrictions": [
                              {
                                  "issuer_did": INDY_EMAIL_VERIFIER_DID,
-                                 "schema_name": "verified-hcn",
+                                 "schema_name": "covid-status",
                              }
                          ],
                      },
@@ -280,7 +280,7 @@ def webhooks(request, topic):
                          "restrictions": [
                              {
                                  "issuer_did": INDY_EMAIL_VERIFIER_DID,
-                                 "schema_name": "verified-hcn",
+                                 "schema_name": "covid-status",
                              }
                          ],
                      },
@@ -289,7 +289,25 @@ def webhooks(request, topic):
                          "restrictions": [
                              {
                                  "issuer_did": INDY_EMAIL_VERIFIER_DID,
-                                 "schema_name": "verified-hcn",
+                                 "schema_name": "covid-status",
+                             }
+                         ],
+                     },
+                     "covid_status_referent": {
+                         "name": "covid_status",
+                         "restrictions": [
+                             {
+                                 "issuer_did": INDY_EMAIL_VERIFIER_DID,
+                                 "schema_name": "covid-status",
+                             }
+                         ],
+                     },
+                     "time_referent": {
+                         "name": "time",
+                         "restrictions": [
+                             {
+                                 "issuer_did": INDY_EMAIL_VERIFIER_DID,
+                                 "schema_name": "covid-status",
                              }
                          ],
                      }

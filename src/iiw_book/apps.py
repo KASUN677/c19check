@@ -22,31 +22,4 @@ class IIWBookConfig(AppConfig):
         except ProgrammingError:
             return
 
-        if cache.get("credential_definition_id") is None:
-            schema_body = {
-                "schema_name": "covid_status",
-                "schema_version": "1.0.0",
-                "attributes": ["email","hcn","dob","gender","covid-status","time"],
-            }
-            schema_response = requests.post(f"{AGENT_URL}/schemas", json=schema_body)
 
-            logger.info(schema_response.text)
-
-            schema_response_body = schema_response.json()
-            schema_id = schema_response_body["schema_id"]
-
-            credential_definition_body = {"schema_id": schema_id}
-            credential_definition_response = requests.post(
-                f"{AGENT_URL}/credential-definitions", json=credential_definition_body
-            )
-
-            logger.info(credential_definition_response.text)
-
-            credential_definition_response_body = credential_definition_response.json()
-            credential_definition_id = credential_definition_response_body[
-                "credential_definition_id"
-            ]
-
-            logger.info(f"cred def id: {credential_definition_id}")
-
-            cache.set("credential_definition_id", credential_definition_id, None)

@@ -3,8 +3,8 @@ services:
   iiw-book-agent:
     image: bcgovimages/aries-cloudagent:py36-1.15-0_0.5.6
     environment:
-      ADMIN_PORT: 4000
-      AGENT_PORT: 11000
+      ADMIN_PORT: 6000
+      AGENT_PORT: 12000
       INDY_SEED: "00000000000000000000000000000000"
       GENESIS_TRANSACTIONS: |
         {"reqSignature":{},"txn":{"data":{"data":{"alias":"Node1","blskey":"4N8aUNHSgjQVgkpm8nhNEfDf6txHznoYREg9kirmJrkivgL4oSEimFF6nsQ6M41QvhM2Z33nves5vfSn9n1UwNFJBYtWVnHYMATn76vLuL3zU88KyeAYcHfsih3He6UHcXDxcaecHVz6jhCYz1P2UZn2bDVruL5wXpehgBfBaLKm3Ba","blskey_pop":"RahHYiCvoNCtPTrVtP7nMC5eTYrsUA8WjXbdhNc8debh1agE9bGiJxWBXYNFbnJXoXhWFMvyqhqhRoq737YQemH5ik9oL7R4NTTCz2LEZhkgLJzB3QRQqJyBNyv7acbdHrAT8nQ9UkLbaVL9NBpnWXBTw4LEMePaSHEw66RzPNdAX1","client_ip":"138.197.138.255","client_port":9702,"node_ip":"138.197.138.255","node_port":9701,"services":["VALIDATOR"]},"dest":"Gw6pDLhcBcoQesN72qfotTgFa7cbuqZpkX3Xo6pLhPhv"},"metadata":{"from":"Th7MpTaRZVRYnPiabds81Y"},"type":"0"},"txnMetadata":{"seqNo":1,"txnId":"fea82e10e894419fe2bea7d96296a6d46f50f93f9eeda954ec461b2ed2950b62"},"ver":"1"}
@@ -13,27 +13,27 @@ services:
         {"reqSignature":{},"txn":{"data":{"data":{"alias":"Node4","blskey":"2zN3bHM1m4rLz54MJHYSwvqzPchYp8jkHswveCLAEJVcX6Mm1wHQD1SkPYMzUDTZvWvhuE6VNAkK3KxVeEmsanSmvjVkReDeBEMxeDaayjcZjFGPydyey1qxBHmTvAnBKoPydvuTAqx5f7YNNRAdeLmUi99gERUU7TD8KfAa6MpQ9bw","blskey_pop":"RPLagxaR5xdimFzwmzYnz4ZhWtYQEj8iR5ZU53T2gitPCyCHQneUn2Huc4oeLd2B2HzkGnjAff4hWTJT6C7qHYB1Mv2wU5iHHGFWkhnTX9WsEAbunJCV2qcaXScKj4tTfvdDKfLiVuU2av6hbsMztirRze7LvYBkRHV3tGwyCptsrP","client_ip":"138.197.138.255","client_port":9708,"node_ip":"138.197.138.255","node_port":9707,"services":["VALIDATOR"]},"dest":"4PS3EDQ3dW1tci1Bp6543CfuuebjFrg36kLAUcskGfaA"},"metadata":{"from":"TWwCRQRZ2ZHMJFn9TzLp7W"},"type":"0"},"txnMetadata":{"seqNo":4,"txnId":"aa5e817d7cc626170eca175822029339a444eb0ee8f0bd20d3b0b76e566fb008"},"ver":"1"}
       SITE_URL: ${SITE_URL}
       WEBHOOK_URL: http://iiw-book-service:8080/webhooks
-      AGENT_LABEL: Covid 19 Viewer
+      AGENT_LABEL: Covid 19 Check
     build:
       context: ..
       dockerfile: docker/iiw-book-agent/Dockerfile
     ports:
-      - "4000:4000"
-      - "11000:11000"
+      - "6000:6000"
+      - "12000:12000"
     entrypoint: /bin/bash
     command: [
         "-c",
         "curl -d '{\"seed\":\"${AGENT_WALLET_SEED}\", \"role\":\"TRUST_ANCHOR\", \"alias\":\"BC Email Verifier (Docker)\"}' -X POST http://test.bcovrin.vonx.io/register; \
         sleep 5; \
         aca-py start \
-        -it http '0.0.0.0' 11000 \
+        -it http '0.0.0.0' 12000 \
         -ot http \
-        --admin '0.0.0.0' 4000 \
+        --admin '0.0.0.0' 6000 \
         -e $SITE_URL \
         --wallet-type indy \
         --seed $AGENT_WALLET_SEED \
         --genesis-url http://test.bcovrin.vonx.io/genesis \
-        --label 'Covid 19 viewer' \
+        --label 'Covid 19 Check' \
         --auto-accept-invites \
         --auto-accept-requests \
         --admin-insecure-mode \
@@ -47,10 +47,10 @@ services:
       - iiw-book-postgres
       - iiw-book-agent
     environment:
-      PORT: 8080
+      PORT: 8090
       INDY_EMAIL_VERIFIER_DID: RHxrDrTpYiYz9YxixCxMbp
-      SITE_URL: http://localhost:8080
-      AGENT_URL: "http://iiw-book-agent:4000"
+      SITE_URL: http://localhost:8090
+      AGENT_URL: "http://iiw-book-agent:6000"
       DEBUG: "true"
       DB_NAME: postgres
       DB_USER: postgres
@@ -66,7 +66,7 @@ services:
       CONFERENCE_OPTIONS: "Positive,Negative"
       WEB_CONCURRENCY: 1
     ports:
-      - 7070:8080
+      - 7070:8090
     command: >
       bash -c "
       echo waiting for iiw-book-agent ...;
