@@ -11,7 +11,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <link rel="shortcut icon" href="{% static 'favicon.ico' %}" />
-    <title>COVID 19 viwer</title>
+    <title>COVID 19 check</title>
     <meta
       name="description"
       content="A verification service used to issue a verifiable credential asserting COVID status on the HCN holder."
@@ -31,11 +31,11 @@
       </p>
     <![endif]-->
     <header>
-      <nav class="navbar navbar-expand-lg navbar-dark">
+      <nav class="navbar navbar-expand-lg navbar-light">
         <!-- Navbar content -->
         <div class="container">
           <a class="navbar-brand" href="/" style="font-size:2em">
-            COVID viewer
+            COVID check
           </a>
         </div>
       </nav>
@@ -44,23 +44,13 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-9 col-md-12">
-            <h1>Your covid report</h1>
+            <h1>Your covid status is:</h1>
             <form action="/submit-name/{{connection_id}}" method="POST" style="max-width: 600px">
               {% csrf_token %}
               <div class="form-group">
-                <label for="name">Health Card:</label>
-                <h3>{{hcn}}</h3>
+                 <h3>{{covid}}</h3>
                 
               </div>
-              <div class="form-group">
-                <label for="conference">COVID Status</label>
-                <select class="form-control" id="conference" name="conference" required>
-                  {% for conference in conferences %}
-                  <option value="{{conference}}">{{conference}}</option>
-                  {% endfor %}
-                </select>
-              </div>
-              <button type="submit" class="btn btn-primary">Issue credential</button>
             </form>
           </div>
         </div>

@@ -111,7 +111,7 @@ def submit_name(request, connection_id):
         conferences = CONFERENCE_OPTIONS.split(",")
         return HttpResponse(
             template.render(
-                {"connection_id": connection_id, "conferences": conferences ,"hcn":attd.hcn}, request
+                {"connection_id": connection_id, "conferences": conferences ,"covid":attd.covid}, request
             )
         )
     elif request.method == "POST":
@@ -294,7 +294,7 @@ def webhooks(request, topic):
                          ],
                      },
                      "covid_status_referent": {
-                         "name": "covid_status",
+                         "name": "covid-status",
                          "restrictions": [
                              {
                                  "issuer_did": INDY_EMAIL_VERIFIER_DID,
@@ -368,6 +368,7 @@ def webhooks(request, topic):
         attendee.hcn= message["presentation"]["requested_proof"]["revealed_attrs"]["hcn_referent"]["raw"]
         attendee.dob= message["presentation"]["requested_proof"]["revealed_attrs"]["dob_referent"]["raw"]
         attendee.gender= message["presentation"]["requested_proof"]["revealed_attrs"]["gender_referent"]["raw"]
+        attendee.covid= message["presentation"]["requested_proof"]["revealed_attrs"]["covid_status_referent"]["raw"]
         # attendee.approved = False
         # attendee.denied = False
         attendee.save()
