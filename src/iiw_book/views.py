@@ -271,7 +271,7 @@ def webhooks(request, topic):
                          "restrictions": [
                              {
                                  "issuer_did": INDY_EMAIL_VERIFIER_DID,
-                                 "schema_name": "covid-status",
+                                 "schema_name": "covid_status",
                              }
                          ],
                      },
@@ -280,7 +280,7 @@ def webhooks(request, topic):
                          "restrictions": [
                              {
                                  "issuer_did": INDY_EMAIL_VERIFIER_DID,
-                                 "schema_name": "covid-status",
+                                 "schema_name": "covid_status",
                              }
                          ],
                      },
@@ -289,7 +289,7 @@ def webhooks(request, topic):
                          "restrictions": [
                              {
                                  "issuer_did": INDY_EMAIL_VERIFIER_DID,
-                                 "schema_name": "covid-status",
+                                 "schema_name": "covid_status",
                              }
                          ],
                      },
@@ -298,7 +298,7 @@ def webhooks(request, topic):
                          "restrictions": [
                              {
                                  "issuer_did": INDY_EMAIL_VERIFIER_DID,
-                                 "schema_name": "covid-status",
+                                 "schema_name": "covid_status",
                              }
                          ],
                      },
@@ -307,7 +307,7 @@ def webhooks(request, topic):
                          "restrictions": [
                              {
                                  "issuer_did": INDY_EMAIL_VERIFIER_DID,
-                                 "schema_name": "covid-status",
+                                 "schema_name": "covid_status",
                              }
                          ],
                      }
